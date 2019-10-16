@@ -1,0 +1,128 @@
+[gd_scene load_steps=28 format=2]
+
+[ext_resource path="res://Player.gd" type="Script" id=1]
+[ext_resource path="res://sprite/playeranimation/runleft0.png" type="Texture" id=2]
+[ext_resource path="res://sprite/playeranimation/runleft1.png" type="Texture" id=3]
+[ext_resource path="res://sprite/playeranimation/runleft2.png" type="Texture" id=4]
+[ext_resource path="res://sprite/playeranimation/runleft3.png" type="Texture" id=5]
+[ext_resource path="res://sprite/playeranimation/runright0.png" type="Texture" id=6]
+[ext_resource path="res://sprite/playeranimation/runright1.png" type="Texture" id=7]
+[ext_resource path="res://sprite/playeranimation/runright2.png" type="Texture" id=8]
+[ext_resource path="res://sprite/playeranimation/runright3.png" type="Texture" id=9]
+[ext_resource path="res://sprite/playeranimation/standleft0.png" type="Texture" id=10]
+[ext_resource path="res://sprite/playeranimation/standleft1.png" type="Texture" id=11]
+[ext_resource path="res://sprite/playeranimation/standleft2.png" type="Texture" id=12]
+[ext_resource path="res://sprite/playeranimation/standleft3.png" type="Texture" id=13]
+[ext_resource path="res://sprite/playeranimation/standright0.png" type="Texture" id=14]
+[ext_resource path="res://sprite/playeranimation/standright1.png" type="Texture" id=15]
+[ext_resource path="res://sprite/playeranimation/standright2.png" type="Texture" id=16]
+[ext_resource path="res://sprite/playeranimation/standright3.png" type="Texture" id=17]
+[ext_resource path="res://sprite/tileset_0.png" type="Texture" id=18]
+[ext_resource path="res://sprite/tileset_1.png" type="Texture" id=19]
+[ext_resource path="res://sprite/tileset_2.png" type="Texture" id=20]
+[ext_resource path="res://sprite/tileset_3.png" type="Texture" id=21]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 15, 28 )
+
+[sub_resource type="SpriteFrames" id=2]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "runleft",
+"speed": 14.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ) ],
+"loop": true,
+"name": "runright",
+"speed": 14.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ) ],
+"loop": true,
+"name": "standleft",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "standright",
+"speed": 2.0
+} ]
+
+[sub_resource type="ConvexPolygonShape2D" id=3]
+points = PoolVector2Array( 0, 32, 64, 32, 64, 64, 0, 64 )
+
+[sub_resource type="AnimatedTexture" id=4]
+flags = 4
+frames = 4
+fps = 15.0
+frame_0/texture = ExtResource( 18 )
+frame_1/texture = ExtResource( 19 )
+frame_1/delay_sec = 0.0
+frame_2/texture = ExtResource( 20 )
+frame_2/delay_sec = 0.0
+frame_3/texture = ExtResource( 21 )
+frame_3/delay_sec = 0.0
+
+[sub_resource type="ConvexPolygonShape2D" id=5]
+points = PoolVector2Array( 0, 32, 64, 32, 64, 64, 0, 64 )
+
+[sub_resource type="TileSet" id=6]
+0/name = "tileset_0.png 0"
+0/texture = SubResource( 4 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 64, 64 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 3 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "Node.tscn::9 1"
+1/texture = SubResource( 4 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 64, 0, 64, 64 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 5 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[node name="Root" type="Node"]
+
+[node name="Player" type="KinematicBody2D" parent="."]
+position = Vector2( 477.392, 51.3754 )
+script = ExtResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2( 0, 5 )
+z_index = 2
+shape = SubResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Player"]
+z_index = 2
+frames = SubResource( 2 )
+animation = "standleft"
+frame = 1
+playing = true
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+current = true
+zoom = Vector2( 1, 0.94 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = SubResource( 6 )
+format = 1
+tile_data = PoolIntArray( 65541, 1, 0, 65542, 1, 0, 65543, 1, 0, 65544, 1, 0, 65545, 1, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0 )
